@@ -3,7 +3,7 @@
 This project gets course questions from pdf and store it onto db.The online users can take up exam time bound on those course 
 
 # Tech Stack 
-Django 4.1, Postgres DB, HTML,CSS,Bootstrap 4
+Django 4.1, Postgres DB, HTML,CSS,Bootstrap 5
 
 Default Django features used for authentication, admin interface and so on
 
