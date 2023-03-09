@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} {{course_title}} - Exam {% endblock title %}
+{% block content %}
+<section class="section  pclear secPadding" style="background-color:#ebebf9;margin-top:20px">
+  <div class="container" style="margin-top:15px;width:98%" align="center">
+    <div class="row " style="padding-top: 5px;">
+      <div class="col-sm-12" align="center" style="background-color:#ffffff">
+        <h2><b>{{course.name}}</b> - {{total_question}} Available Questions - Last Update {{course.date|date:"d/m/Y" }}
+        </h2>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 15px;">
+      <div style="background-color:#ffffff;" class="col-sm-3" align="center">
+        <div id="clockdiv" style="padding-top: 20px;">
+          <div>
+            <span class="minutes"></span>
+            <div class="smalltext" style="color:white;">Minutes</div>
+          </div>
+          <div>
+            <span class="seconds"></span>
+            <div class="smalltext" style="color:white;">Seconds</div>
+          </div>
+        </div>
+        <div class="col-12" style="margin-top: 15px;">
+          <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-2">
+              <a href="javascript:ResetClock()"><img id="logo" src="{% static 'assets/media/images/core/refresh.png' %}" alt="Worthy"></a>
+            </div>
+            <div class="col-sm-2">
+              <a href="javascript:StopOrReplayClock()"><img id="play_pause" src="{% static 'assets/media/images/core/pause.png' %}" alt="Worthy"></a>
+            </div>
+            <div class="col-sm-3"></div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 15px;">
+          <div class="col-sm-12" id="message_info" style="color:red;font-weight: bold;">
+           </div>
+        </div>
+      </div>
+      <div class="col-sm-9" align="center" id="exam_board">
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script type="text/javascript" src="plugins/jquery.min.js"></script>
+<script type="text/javascript">
+  console.log("Course slug:","{{course.slug}}");
+  console.log("total_question");
+  var stop_clock = false;
+  var time = 0;
+  function ClearExamAnswer() {
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+      document.getElementById("exam_board").innerHTML = this.responseText;
+      LoadQuestion(1, 'false');
+    }
+    xhttp.open("GET", "{{base_url}}/reset_exam/{{course.slug}}" );
+    xhttp.send();
+    LoadQuestion(1, 'false');
+  }
+  ClearExamAnswer();
+  function LoadQuestion(question_num, is_next) {
+    if (stop_clock) {
+      document.getElementById ("message_info").innerText ="Please turn on timer clock to resume the exam!!";
+      return;
+    } 
+    else document.getElementById ("message_info").innerText ="";
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+      document.getElementById("exam_board").innerHTML = this.responseText;
+    }
+    var query_param = "?is_next=" + is_next+"&max_question={{total_question}}";
+    if (question_num > 1 && is_next == 'true') {
+      query_param = FormQueryParam(query_param, (question_num - 1))
+    }
+    xhttp.open("GET", "{{base_url}}/exam_question/{{course.slug}}/" + question_num + query_param);
+    xhttp.send();
+  }
+  LoadQuestion(1, 'false');
+  function EvaluateExam(last_question_num) {
+    console.log("Question NO is:",last_question_num);
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function () {
+      $("#report_dialog").html(this.responseText);
+      $("#report_dialog").dialog({
+        width: 600,
+        height: 100,
+        modal: true
+      });
+    }
+    var query_param = "?";
+    query_param = FormQueryParam(query_param, last_question_num)
+    window.location ="{{base_url}}/eval_exam/{{course.slug}}/" + last_question_num + query_param;
+  }
+  function FormQueryParam(query_param, question_num) {
+    query_param += "&user_answer_{{course.exam_id}}" + '_' + (question_num) + "=";
+    if (document.getElementById('{{course.exam_id}}' + '_' + (question_num) + "_A").checked)
+      query_param += 'Option_A~true';
+    else
+      query_param += 'Option_A~false';
+    if (document.getElementById('{{course.exam_id}}' + '_' + (question_num) + "_B").checked)
+      query_param += ',Option_B~true';
+    else
+      query_param += ',Option_B~false';
+    if (document.getElementById('{{course.exam_id}}' + '_' + (question_num) + "_C").checked)
+      query_param += ',Option_C~true';
+    else
+      query_param += ',Option_C~false';
+    if (document.getElementById('{{course.exam_id}}' + '_' + (question_num) + "_D").checked)
+      query_param += ',Option_D~true';
+    else
+      query_param += ',Option_D~false';
+    return query_param;
+  }
+  function clicked() {
+    LoadQuestion(1, 'false');
+  }
+  function getTimeRemaining(endtime) {
+    const total = Date.parse(endtime) - Date.parse(new Date());
+    const seconds = Math.floor((total / 1000) % 60);
+    const minutes = Math.floor((total / 1000 / 60) % 60);
+    return {
+      total,
+      minutes,
+      seconds
+    };
+  }
+  function initializeClock(id, endtime) {
+    const clock = document.getElementById(id);
+    const minutesSpan = clock.querySelector('.minutes');
+    const secondsSpan = clock.querySelector('.seconds');
+    function updateClock() {
+      const t = getTimeRemaining(endtime);
+      minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+      secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+      if (t.total <= 0 || stop_clock) {
+        clearInterval(timeinterval);
+        stop_clock = true;
+        console.log("Time Finished...");
+      }
+      if (t.total <= 0) {
+        document.getElementById("evalbtn").click();
+      }
+    }
+    updateClock();
+    const timeinterval = setInterval(updateClock, 1000);
+  }
+  var duration = parseInt({{duration}});
+  const deadline = new Date(Date.parse(new Date()) +  duration* 60 * 1000);
+  initializeClock('clockdiv', deadline);
+  function ResetClock () {
+    stop_clock = true;
+    ClearExamAnswer();
+    LoadQuestion(1, 'false');
+    var millisecondsToWait = 1000;
+    setTimeout(function() {
+      stop_clock = false;
+        const deadline = new Date(Date.parse(new Date()) + duration * 60 * 1000);
+        initializeClock('clockdiv', deadline);
+        LoadQuestion(1, 'false');
+    }, millisecondsToWait);
+    ClearExamAnswer();
+    LoadQuestion(1, 'false');
+    clicked()
+  }
+  function StopOrReplayClock () {
+    if (stop_clock) {
+      document.getElementById("play_pause").src ="{% static 'assets/media/images/core/pause.png' %}";
+      ReplayClock ();
+    }
+    else {
+      document.getElementById("play_pause").src ="{% static 'assets/media/images/core/play.png' %}";
+      stop_clock = true;
+    }
+  }
+  function ReplayClock () {
+      stop_clock = true;
+      stop_clock = false;
+      const clock = document.getElementById('clockdiv');
+      const minutesSpan = clock.querySelector('.minutes');
+      const secondsSpan = clock.querySelector('.seconds');
+      var mins_sec_remaining = (parseInt(minutesSpan.innerText) *  60 * 1000);
+      mins_sec_remaining += parseInt(secondsSpan.innerText)*1000
+      stop_clock = false;
+      const deadline = new Date(Date.parse(new Date()) + mins_sec_remaining);
+      initializeClock('clockdiv', deadline);
+  }
+  $(document).ready(function() {
+    console.log("Yes working...")
+    stop_clock = false;
+    ClearExamAnswer();
+    LoadQuestion(1, 'false');
+  });
+</script>
+{% endblock content %}

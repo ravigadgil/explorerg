@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} UpdateTitle {% endblock %} 
+{% block stylesheets %}
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+{% endblock stylesheets %}
+{% block content %}
+    <div class="container-fluid page__container">
+		<section class="section transprant-bg pclear secPadding">
+			<div class="container no-view" data-animation-effect="fadeIn">
+				<div class="space"></div>
+				<div class="row">
+					<div class="space"></div>
+					<div class="col-md-3 col-sm-3"></div>
+					<div class="col-md-6 col-sm-6">
+						<div class="panel panel-primary">
+							<div class="panel-body">
+									<div class="card">
+										<div class="card-header text-center">
+											<h4 class="card-title mb-0">Update Title</h4>
+										</div>
+										<div class="card-body">
+											<div class="space"></div>
+											<form method="POST" action="" enctype="multipart/form-data">
+												<div class="row" > 
+													{% csrf_token %}
+													<small class="col-md-12">Category Name:</small><br>
+                                                    <div class="col-md-5">
+                                                        {{form.valves}}
+                                                    </div>
+												</div>
+                                                <div style="margin-top: 5px;" class="col-md-12"></div>
+												{% if cat %}
+												<select class="form-control" name="examid">
+													{% for id,name in cat %}
+													<option value="{{ id }}">{{ name }}</option>
+													{% endfor %}
+												</select>
+                                                <div style="margin-top: 10px;" class="col-md-12"></div>
+													<div class=" col-md-5" style="color:#006ce7;">
+														<b>Title:  </b>
+													</div>
+													<div class="col-md-6" style="color:#006ce7;">
+														<input type="text" name="coursetitle" required>
+													</div>
+												{% endif %}
+												<div style="margin-top: 10px;" class="space"></div>
+												<div class="space"></div>
+												<div class="row">
+													<div class="col col-md-12" align="center">
+														<button type="submit" class="btn btn-primary">Update</button> 
+													</div>
+												</div>
+											</form>
+                            </div>
+                        </div>
+						<div class="space"></div>
+					</div>					
+				</div>
+			</div>			  
+		</section>
+    </div>
+{% endblock content %}
+{% block javascripts %}
+<script src="/static/assets/js/quill.min.js"></script>
+<script>
+	if (document.getElementById('editorname1')) {
+      var quillname1 = new Quill('#editorname1', {
+        theme: 'snow' // Specify theme in configuration
+      });
+    }
+	function editor1(){      
+      $.ajax({
+        type: "POST",
+        url: "{% url 'addcat' %}",
+        data: {
+			'cname': quillname1.getText(),
+        },
+        success: function (response) {
+            alert(quillname1.getText() + "Category added successfully")
+        }
+      });
+    }
+</script>
+{% endblock javascripts %}
+

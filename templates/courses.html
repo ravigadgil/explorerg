@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %} {{ courseinfo.title }} {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <!-- [ Main Content ] start -->
+    <div class="container-fluid page__container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">Courses</li>
+        </ol>
+        <div class="media align-items-center mb-headings">
+            <div class="media-body">
+                <h1 class="h2">Courses</h1>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="card-columns">
+            {% for course in courses %}
+            <div class="card">
+                <div class="card-header text-center">
+                    <h4 class="card-title mb-0">{{course.category_name}}</h4>
+                </div>
+                <div class="card-body">
+                    <small class="text-muted">Courses list:</small><br>
+                    {% for exam in course.course_list %}
+                    <h6 class="card-title mb-0"><a href="/exam_preview/{{exam.course_slug}}" style="text-decoration:none;" >{{exam.course_name}}</a></h6>
+                    {% endfor %}<br>
+                    <span class="badge badge-primary ">{{course.category_name}}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

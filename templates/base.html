@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+        <meta name="description" content="{{description}}">
+        <meta name="author" content="explorerg.com">
+        <meta name="keywords" content="{{keywords}}">
+
+        <title>{% block title %}{% endblock %}</title>
+
+        <link rel="canonical" href="{{CANONICAL_PATH}}" />
+
+	    <link rel="icon" href="{% static 'assets/media/images/core/logo.png' %}">
+
+        <!-- App CSS -->
+        <link rel="stylesheet"  type="text/css" href="{% static 'assets/css/app.min.css' %}">
+        
+        <link defer media="print" onload="this.onload=null;this.removeAttribute('media');" href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link defer media="print" onload="this.onload=null;this.removeAttribute('media');" href="https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500%7CRoboto:400,500&display=swap"
+              rel="stylesheet">
+        
+        <link defer media="print" onload="this.onload=null;this.removeAttribute('media');" href="{% static 'assets/css/clock.css' %}?ver=6" rel="stylesheet"> 
+
+        <link defer media="print" onload="this.onload=null;this.removeAttribute('media');" href="{% static 'assets/fonts/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet"> 
+
+        <link defer media="print" onload="this.onload=null;this.removeAttribute('media');" href="{% static 'assets/css/animations.min.css' %}" rel="stylesheet">
+        
+        <!-- Perfect Scrollbar -->
+        <link defer type="text/css" media="print" onload="this.onload=null;this.removeAttribute('media');"
+              href="{% static 'assets/css/perfect-scrollbar.min.css' %}"
+              rel="stylesheet">
+
+        <!-- Material Design Icons -->
+        <!-- <link type="text/css" media="print" onload="this.onload=null;this.removeAttribute('media');"
+              href="{% static 'assets/css/material-icons.min.css' %}"
+              rel="stylesheet"> -->
+
+        <!-- Font Awesome Icons -->
+        <!-- <link type="text/css"
+              href="{% static 'assets/css/fontawesome.min.css' %}"
+              rel="stylesheet"> -->
+
+        <!-- Preloader -->
+        <link defer type="text/css" media="print" onload="this.onload=null;this.removeAttribute('media');"
+              href="{% static 'assets/css/spinkit.min.css' %}"
+              rel="stylesheet">
+
+        
+
+        <link defer media="print" onload="this.onload=null;this.removeAttribute('media');" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- Specific CSS goes HERE -->
+        {% block stylesheets %}
+            
+        {% endblock stylesheets %}
+
+        
+    </head>
+
+<body>
+    <div class="mdk-header-layout js-mdk-header-layout">
+        {% include 'nav1.html' %}
+        
+        <div class="mdk-header-layout__content">
+
+            <div data-push
+                 data-responsive-width="992px"
+                 class="mdk-drawer-layout js-mdk-drawer-layout">
+                <div style="margin-top: 50px;" class="mdk-drawer-layout__content page ">
+                    <div align="center">
+                        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1599290037328689" crossorigin="anonymous"></script>
+            
+                        <!-- Google tag (gtag.js) -->
+                        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3JD0EPN25"></script>
+                        <script>
+                        window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag('js', new Date());
+            
+                        gtag('config', 'G-Y3JD0EPN25');
+                        </script>
+                    </div>
+                    
+                    {% block content %}
+                    
+                    {% endblock content %}
+
+                </div>
+
+                {% include 'side1.html' %}
+                
+            </div>
+
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <!-- <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/plugins/jquery.min.js' %}"></script> -->
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <!-- Bootstrap -->
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/popper.min.js' %}"></script>
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <!-- Perfect Scrollbar -->
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/perfect-scrollbar.min.js' %}"></script>
+
+    <!-- MDK -->
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/dom-factory.js' %}"></script>
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/material-design-kit.js' %}"></script>
+
+    <!-- App JS -->
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/app.min.js' %}"></script>
+
+    <!-- Highlight.js -->
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/hljs.min.js' %}"></script>
+
+    <!-- App Settings (safe to remove) -->
+    <!-- <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/app-settings.js' %}"></script> -->
+
+    <!-- Global Settings -->
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/settings.js' %}"></script>
+
+    <!-- Moment.js -->
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/moment.min.js' %}"></script>
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/moment-range.js' %}"></script>
+
+    <!-- Chart.js -->
+    <!-- <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/Chart.min.js' %}"></script> -->
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/chartjs.js' %}"></script>
+
+    <!-- Student Dashboard Page JS -->
+    <!-- <script src="assets/js/chartjs-rounded-bar.js"></script> -->
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/page.student-dashboard.js' %}"></script>
+
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/jquery.countdown.min.js' %}"></script>
+
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="{% static 'assets/js/countdown.js' %}"></script>
+    <!-- Specific Page JS goes HERE  -->
+
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" type="text/javascript" src="{% static 'assets/plugins/modernizr.js' %}"></script>
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" type="text/javascript" src="{% static 'assets/plugins/isotope/isotope.pkgd.min.js' %}"></script>
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" type="text/javascript" src="{% static 'assets/plugins/jquery.backstretch.min.js' %}"></script>
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script defer media="print" onload="this.onload=null;this.removeAttribute('media');" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    {% block javascripts %}
+        
+    {% endblock javascripts %}
+
+</body>
+</html>
+
+
+
+
+
+

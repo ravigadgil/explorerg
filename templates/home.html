@@ -1,0 +1,303 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} {{ homeinfo.title }} {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}
+<style>
+    .first {
+        width: 25%;
+        float: left;
+		color: #ffffff;
+        margin-top: -450px;
+        margin-left: 50px;
+    }
+    .one {
+        margin: 0%;
+        position: relative;
+    }
+    .first-txt {
+        height: 145px;
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        display: -webkit-box;
+            position: absolute;
+            top: 11px;
+            left: 18px;
+    }
+    .first-txt1 {
+        height: 160px;
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        display: -webkit-box;
+            position: absolute;
+            top: 11px;
+            left: 18px;
+    }
+    .second-txt {
+        position: absolute;
+        bottom: 20px;
+        left: 10px;
+    }
+    .para {
+        font-size: 20px;
+    }
+    .welcome {
+        background-color: blue;
+        margin-top: 20px;
+    }
+    .student {
+        /* float: right; */
+    }
+    .special {
+        margin-top: 150px;
+        padding: 0px 30px;
+		color: #ffffff;
+    }
+    .testi {
+        float: left;
+        background-color: black;
+        width: 1330px;
+        height: 400px;
+    }
+    .head {
+        color: white;
+        text-align: center;
+        margin-top: 100px;
+        font-family: sans-serif;
+        font-size: 25px;
+        font-weight: lighter;
+    }
+    .item {
+        background-color: black !important;
+        color: white;
+    }
+    .whole {
+        padding: 20px;
+    }
+    .carousel-indicators {
+        margin-bottom: -50px;
+    }
+    .img-circle {
+        float: left;
+        margin-left: 350px;
+    }
+    .inner {
+        float: left;
+        margin-left: 500px;
+    }
+    .contact {
+        float: left;
+        margin-top: 30px;
+        background-color: black;
+        width: 1330px;
+        height: 500px;
+    }
+    .contact h1 {
+        text-align: center;
+        color: white;
+        font-weight: 200;
+    }
+    .drive p {
+        float: right;
+        color: white;
+        margin-left: 130px;
+        margin-top: -330px;
+    }
+    .map {
+        color: snow;
+        margin-top: 160px;
+        margin-left: 70px;
+    }
+    .phone {
+        color: snow;
+        margin-top: 30px;
+        margin-left: 70px;
+    }
+    .mail {
+        color: snow;
+        margin-left: 70px;
+        margin-top: 25px;
+    }
+    .button-input {
+        background-color: rgb(25, 163, 218);
+        border: none;
+        color: white;
+        padding: 8px 35px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 15px 2px;
+        cursor: pointer;
+        margin-left: -12px;
+    }
+    .sub-menu-item .sample a:hover {
+    background-color: blue;
+    color: #ffffff;
+    padding:5px;
+    }
+    .glyphicon {
+        position: relative;
+        top: 1px;
+        margin-left: -10px;
+        display: inline-block;
+        font-family: "Glyphicons Halflings";
+        font-style: normal;
+        font-weight: 400;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    #welhead {
+        font-size: 18px;
+        margin-top: 5px;
+    }
+    #welpara {
+        font-size: 18px;
+        width: 1200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        webkit-box-orient: vertical;
+    }
+    #spehead {
+        font-size: 18px;
+        margin-top: 12px;
+    }
+    #spepara {
+        font-size: 18px;
+	width: 940px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 6;
+        line-clamp: 6;
+        webkit-box-orient: vertical;
+    }
+    @media only screen and (max-width: 768px) {
+        #welpara {
+            font-size: 10px;
+            width: 170px;
+            height: 90px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            webkit-box-orient: vertical;
+        }
+        #welhead {
+            font-size: 14px;
+        }
+
+        #spepara {
+            font-size: 10px;
+            width: 300px;
+            height: 50px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            webkit-box-orient: vertical;
+        }
+        #spehead {
+            font-size: 14px;
+        }
+    }
+</style>
+{% endblock stylesheets %}
+{% block content %}
+    <!-- [ Main Content ] start -->
+    <div class="container-fluid page__container">
+           <div class="col-sm-12 card" style="height:500px; margin-top: 10px; background-image:url('/static/assets/media/images/main.webp')";>
+            <header style="border-radius: 10px; margin-top: 10px;" class="text-center text-white d">
+              <div class="container my-auto">
+                  <div class="row">
+                      <div class="col-lg-10 mx-auto">
+                          <h1 class="text-faded text-center text-uppercase"><strong style="color: #FFF;">Welcome {% if request.user.is_authenticated %}{{user.username}}{% else %} LearningPortal{% endif %}</strong></h1>
+                          <hr>
+                      </div>
+                  </div>
+                  <div style="padding-bottom: 20px;" class="col-lg-8 mx-auto">
+                      <p class="text-faded mb-5" style="color:#ffffff;">Explorerg is committed to providing a cutting-edge Exam Web Simulator for students and IT professionals. Our simulator is designed to assist users in studying and preparing for various certification exams. We understand the importance of staying current and relevant, and that is why our exams are regularly updated with the latest and most accurate questions. The questions are carefully curated to mimic the actual exam experience, allowing users to familiarize themselves with the format and content of the exam. By utilizing our Exam Web Simulator, students and IT professionals can feel confident and well-prepared as they embark on their certification journey.</p>
+                  </div>
+              </div>
+            </header>
+          </div>
+        
+        <!-- <div align="center">
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1599290037328689" crossorigin="anonymous"></script>
+
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y3JD0EPN25"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-Y3JD0EPN25');
+            </script>
+        </div> -->
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-5"></div>
+                <h2 class="col-md-3">Recent Courses</h2>
+            </div>
+        </div>
+        <div style="margin-top: 5px;" class="row">
+            {% for course in course_list %}
+            <div class="col-sm-4 card" style="height: 350px; text-align: center;background-color: rgba(241, 239, 239, 0.801);border-bottom: 3px solid rgb(28, 28, 252);"  >
+                    <a href="/exam_preview/{{course.slug}}" style="color:black"><h2> {{course.name}}</h2></a>
+               <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+               -webkit-line-clamp: 12;
+                       line-clamp: 2; 
+               -webkit-box-orient: vertical;">{{course.desc|cut:"$$$"}}</p>
+            </div>
+            {% endfor %}
+            <div class="col-lg-12 card" style="margin-top: 10px; background-image:url('/static/assets/media/images/main2.webp')";>
+            <header style="border-radius: 10px; margin-top: 10px;" class="text-center text-white d">
+              <div class="container my-auto">
+                  <div class="row">
+                      <div class="col-lg-10 mx-auto">
+                          <label class="text-faded text-center text-uppercase"><strong style="color: #FFF;">Why We Are So Special..</strong></label>
+                          <hr>
+                      </div>
+                  </div>
+                  <div style="padding-bottom: 20px;" class="col-lg-8 mx-auto">
+                      <p class="text-faded mb-5" style="color:#ffffff;">Our Exam Web Simulator offers a unique and realistic simulated environment for logged-in users to attempt all certification exams. This allows for an authentic and effective preparation for the actual certification exam. Furthermore, non-logged-in users can also take advantage of our service by attempting 10 free questions, which will give them a preview of the quality and functionality of our Exam Web Simulator, before committing to a full time user.
+By offering these unique features and options, our Exam Web Simulator is designed to cater to the diverse needs of students and IT professionals as they work towards achieving their certification goals. </p>
+                  </div>
+              </div>
+            </header>
+          </div>
+          <div class="col-lg-12 card" style="margin-top: 10px; background-image:url('/static/assets/media/images/header.webp');">
+            <header style="border-radius: 10px; margin-top: 10px;" class="text-center text-white d-flex masthead">
+              <div class="container my-auto">
+                  <div class="row">
+                      <div class="col-lg-10 mx-auto">
+                          <label class="text-faded text-uppercase"><strong style="color: #FFF;">About US</strong></label>
+                          <hr>
+                      </div>
+                  </div>
+                  <div style="padding-bottom: 20px;" class="col-lg-8 mx-auto">
+                      <p class="text-faded mb-5">Our goal is to offer an innovative Web Simulator to students and IT professionals to study and prepare to pass the final certification exam. Exams are always updated with the latest questions and they can be used as real exam simulators to study and get ready.
+    
+                        Our unique and up-to-date study material reliably simulates the true final exam helps achieving 100% success.
+                        
+                        Our exams consist of a true set of questions and answers. Each question also has a clear and simple explanation and in this way it is easy to remember and memorize the exam questions.</p><a href="/contactus" class="btn btn-primary btn-xl" role="button" href="#">Find Out More</a>
+                  </div>
+              </div>
+            </header>
+          </div>
+        </div>
+    </div>
+    <!-- [ Main Content ] end -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+{% endblock javascripts %}

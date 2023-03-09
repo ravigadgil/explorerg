@@ -1,0 +1,97 @@
+{% if request.user.is_authenticated %}
+<div class="mdk-drawer js-mdk-drawer mdk-header js-mdk-header mb-0 header" id="default-drawer">
+    <div class="mdk-drawer__content ">
+        <div class="sidebar sidebar-left sidebar-dark bg-dark o-hidden" data-perfect-scrollbar>
+            <div class="sidebar-p-y">
+                <div class="sidebar-heading">More</div>
+                <ul class="sidebar-menu sm-active-button-bg">
+                    <li class="sidebar-menu-item {% if 'dashboard' in segment %} active {% endif %}">
+                        <a class="sidebar-menu-button" href="/dashboard/">
+                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">class</i>
+                            dashboard
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item {% if 'profile' in segment %} active {% endif %}">
+                        <a class="sidebar-menu-button" href="/profile/">
+                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">dvr</i> Profile
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                      <a class="sidebar-menu-button" href="/logout">
+                          <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">lock_open</i> logout
+                      </a>
+                    </li>
+                    {% if request.user.is_superuser %}
+                    <li class="sidebar-menu-item">
+                                        <a class="sidebar-menu-button"
+                                           data-toggle="collapse"
+                                           href="#forum_menu">
+                                            <i class="sidebar-menu-icon sidebar-menu-icon--left material-icons">chat_bubble_outline</i>
+                                            Admin 
+                                            <span class="ml-auto sidebar-menu-toggle-icon"></span>
+                                        </a>
+                                        <ul class="sidebar-submenu sm-indent collapse"
+                                            id="forum_menu">
+                                            <li class="sidebar-menu-item">
+                                                <a class="sidebar-menu-button"
+                                                   href="/addcat">
+                                                    <span class="sidebar-menu-text">Add Category</span>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-menu-item">
+                                                <a class="sidebar-menu-button"
+                                                   href="/import">
+                                                    <span class="sidebar-menu-text">Add Course</span>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-menu-item">
+                                                <a class="sidebar-menu-button"
+                                                   href="/deletecat">
+                                                    <span class="sidebar-menu-text">Delete Category</span>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-menu-item">
+                                                <a class="sidebar-menu-button"
+                                                   href="/deletecourse">
+                                                    <span class="sidebar-menu-text">Delete Course</span>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-menu-item">
+                                                <a class="sidebar-menu-button"
+                                                   href="/updatetitle">
+                                                    <span class="sidebar-menu-text">Update Course Title</span>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-menu-item">
+                                                <a class="sidebar-menu-button"
+                                                   href="/updatekeywords">
+                                                    <span class="sidebar-menu-text">Update Keywords</span>
+                                                </a>
+                                            </li>
+                                            <li class="sidebar-menu-item">
+                                              <a class="sidebar-menu-button"
+                                                 href="/updatedescription">
+                                                  <span class="sidebar-menu-text">Update Description</span>
+                                              </a>
+                                            </li>
+                                            <li class="sidebar-menu-item">
+                                                <a class="sidebar-menu-button"
+                                                   href="/userslist">
+                                                    <span class="sidebar-menu-text">Users list</span>
+                                                </a>
+                                            </li>
+                                           <li class="sidebar-menu-item">
+                                              <a class="sidebar-menu-button"
+                                                 href="/editpages">
+                                                  <span class="sidebar-menu-text">PagesEdit</span>
+                                              </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
